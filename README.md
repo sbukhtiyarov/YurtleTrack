@@ -1,4 +1,9 @@
+# Whats new
+
+Use YouTrack filter string instead filter by issueId
+
 #YurtleTrack
+
 A [TortoiseSVN](http://tortoisesvn.net/ "TortoiseSVN") issue tracker plug-in for integration with [JetBrains YouTrack 6.0](http://www.jetbrains.com/youtrack/ "YouTrack")  
 
     Scott McClure
