@@ -53,12 +53,6 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YurtleTrack\YurtleTrack.csproj">
-      <Project>{34D6AC9E-673E-4764-A1D2-C343C33DF4B5}</Project>
-      <Name>YurtleTrack</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -70,7 +64,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\YurtleTrack\YurtleTrack.csproj">
+      <Project>{34d6ac9e-673e-4764-a1d2-c343c33df4b5}</Project>
+      <Name>YurtleTrack</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

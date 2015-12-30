@@ -9,12 +9,13 @@ using System.Windows.Forms;
 using QuickLaunch.Properties;
 using System.Configuration;
 using System.IO;
+using YurtleTrack;
 
 namespace QuickLaunch
 {
 	public partial class Form1 : Form
 	{
-		YurtleTrack.YurtleTrackPlugin plg;
+		YurtleTrackPlugin plg;
 		string parameters = "﻿<TrackerURL encrypted=\"False\">http://trackingURL.com</TrackerURL><UserName encrypted=\"False\">USERNAME</UserName><Password encrypted=\"False\">PWD</Password>";
 		
 		public Form1()

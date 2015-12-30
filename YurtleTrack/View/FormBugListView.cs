@@ -117,6 +117,10 @@ namespace YurtleTrack.View
 				ISetting projectID = _viewSettings.Get("LastProjectID");
 				ISetting command = _viewSettings.Get("LastCommandText");
 				ISetting useCommand = _viewSettings.Get("LastUseCommand");
+                ISetting lastFilterQuery = _viewSettings.Get("FilterQuery");
+
+
+                FilterQuery = textBoxFilter.Text = lastFilterQuery != null ? lastFilterQuery.Value : "#{Assigned to me} and State:-Fixed and State:-Verified";
 
 				if (locationX != null && locationY != null)
 					this.DesktopLocation = new Point(Convert.ToInt32(locationX.Value), Convert.ToInt32(locationY.Value));
@@ -167,6 +171,7 @@ namespace YurtleTrack.View
 				_viewSettings.Set(new Setting() { Name = "SizeHeight", Value = this.Size.Height.ToString() });
 				_viewSettings.Set(new Setting() { Name = "LastCommandText", Value = textBoxCommand.Text });
 				_viewSettings.Set(new Setting() { Name = "LastUseCommand", Value = checkBoxApplyCommand.Checked.ToString() });
+                _viewSettings.Set(new Setting() { Name = "FilterQuery", Value = FilterQuery });
 
 				if (bindingSourceProjects.Current != null)
 					_viewSettings.Set(new Setting() { Name = "LastProjectID", Value = ((IProject)bindingSourceProjects.Current).ID });
@@ -285,7 +290,7 @@ namespace YurtleTrack.View
 			}
 		}
 
-		private int _pageSize = 10;
+		private int _pageSize = 50;
 		public int PageSize
 		{
 			get
@@ -330,15 +335,6 @@ namespace YurtleTrack.View
 			}
 		}
 
-		public string FilterBy
-		{
-			get
-			{
-				return "Issue ID";
-			}
-			set { throw new NotImplementedException(); }
-		}
-
 		private bool _isBusy;
 		public bool IsBusy
 		{
@@ -356,17 +352,17 @@ namespace YurtleTrack.View
 			}
 		}
 
-		private string _filterValue;
-		public string FilterValue
+		private string _filterQuery;
+		public string FilterQuery
 		{
 			get
 			{
-				return _filterValue;
+				return _filterQuery;
 			}
 			set
 			{
 				_presenter.SuspendBindings();
-				_filterValue = value;
+				_filterQuery = value;
 				Page = 1;
 				_presenter.ResumeBindings();
 				_presenter.DisplayBugDetails();
@@ -403,7 +399,7 @@ namespace YurtleTrack.View
 				else if (textBoxFilter.Focused)
 				{
 					//Apply filter
-					FilterValue = textBoxFilter.Text;
+					FilterQuery = textBoxFilter.Text;
 					return true;
 				}
 				else
@@ -416,7 +412,7 @@ namespace YurtleTrack.View
 		private void buttonClearFilter_Click(object sender, EventArgs e)
 		{
 			textBoxFilter.Text = string.Empty;
-			FilterValue = string.Empty;
+			FilterQuery = string.Empty;
 		}
 	}
 }

@@ -17,8 +17,7 @@ namespace YurtleTrack.View
 		int Page { get; set; }
 		int TotalBugs { get; set; }
 		int PageSize { get; set; }
-		string FilterBy { get; set; }
-		string FilterValue { get; set; }
+		string FilterQuery { get; set; }
 		bool IsBusy { get; set; }
 		bool ApplyCommand { get; set; }
 		ICommand CommandToApply { get; set; }

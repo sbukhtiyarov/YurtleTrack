@@ -6,6 +6,7 @@ using YurtleTrack.Model;
 using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace YurtleTrack.Service
 {
@@ -34,7 +35,7 @@ namespace YurtleTrack.Service
 			BUGLISTURL = YOUTRACKURL + "/rest/issue/byproject/{0}?after={1}&max={2}";
 			COUNTURL = YOUTRACKURL + "/rest/issue/count";
 			COUNTBYPROJECTURL = YOUTRACKURL + "/rest/issue/count?filter=project:{{{0}}}";
-			BUGLISTWITHFILTERURL = YOUTRACKURL + "/rest/issue/byproject/{0}?after={1}&max={2}&filter={3}:{4}";
+			BUGLISTWITHFILTERURL = YOUTRACKURL + "/rest/issue/byproject/{0}?after={1}&max={2}&filter={3}";
 			APPLYCOMMANDURL = YOUTRACKURL + "/rest/issue/{0}/execute";
 			APPLYCOMMANDBODY = "command={0}&disableNotifications={1}";
 
@@ -130,18 +131,18 @@ namespace YurtleTrack.Service
 
 		public List<IBug> GetBugsForProject(IProject project, int page, int pageSize)
 		{
-			return GetFilteredBugsForProject(project, page, pageSize, null, null);
+			return GetFilteredBugsForProject(project, page, pageSize, null);
 		}
 
 		//Wildcard char doesn't seem to work in version 3
 		//http://youtrack.jetbrains.com/issue/JT-13494#
-		public List<IBug> GetFilteredBugsForProject(IProject project, int page, int pageSize, string filterBy, string filterValue)
+		public List<IBug> GetFilteredBugsForProject(IProject project, int page, int pageSize, string filterQuery)
 		{
 			string url;
-			if(String.IsNullOrEmpty(filterBy) || String.IsNullOrEmpty(filterValue))
+			if(String.IsNullOrEmpty(filterQuery))
 				url = String.Format(BUGLISTURL, project.ID, pageSize * page, pageSize);
 			else
-				url = String.Format(BUGLISTWITHFILTERURL, project.ID, pageSize * page, pageSize, filterBy, filterValue);
+                url = String.Format(BUGLISTWITHFILTERURL, project.ID, pageSize * page, pageSize, HttpUtility.UrlEncode(filterQuery));
 
 			List<IBug> bugs = new List<IBug>();
 			string bugsAsXML = GETResponseFrom(url);

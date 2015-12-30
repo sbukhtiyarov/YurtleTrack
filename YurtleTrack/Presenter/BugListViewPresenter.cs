@@ -62,10 +62,10 @@ namespace YurtleTrack.Presenter
 				try
 				{
 					_view.IsBusy = true;
-					if (String.IsNullOrEmpty(_view.FilterValue))
+					if (String.IsNullOrEmpty(_view.FilterQuery))
 						_view.Bugs = _svc.GetBugsForProject(_view.SelectedProject, _view.Page - 1, _view.PageSize);
 					else
-						_view.Bugs = _svc.GetFilteredBugsForProject(_view.SelectedProject, _view.Page - 1, _view.PageSize, _view.FilterBy, _view.FilterValue);
+						_view.Bugs = _svc.GetFilteredBugsForProject(_view.SelectedProject, _view.Page - 1, _view.PageSize, _view.FilterQuery);
 				}
 				finally
 				{
